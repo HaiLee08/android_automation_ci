@@ -14,8 +14,8 @@ jobs:
     strategy:
       matrix:
         android:
-          # - { version: '31', arch: "x86_64", target: "google_apis", profile: "Nexus 6" }
-          - { version: '33', arch: "x86_64", target: "google_apis", profile: "Pixel XL" }
+          - { version: '33', arch: "x86_64", target: "google_apis", profile: "Nexus 6" }
+          # - { version: '33', arch: "x86_64", target: "google_apis", profile: "Pixel XL" }
     steps:
       - name: checkout
         uses: actions/checkout@v4
