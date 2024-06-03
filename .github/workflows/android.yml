@@ -69,9 +69,7 @@ jobs:
           force-avd-creation: false
           emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: true
-          script: |
-            chmod +x ./scripts/run-tests.sh
-            ./scripts/run-tests.sh --instrument-options=paramA,paramB,paramC
+          script: ./gradlew app:connectedDebugAndroidTest
             
       - name: Generate Test Report
         uses: dorny/test-reporter@v1
