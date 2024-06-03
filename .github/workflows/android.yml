@@ -71,7 +71,7 @@ jobs:
           disable-animations: true
           script: |
             chmod +x ./scripts/run-tests.sh
-            ./scripts/run-tests.sh --instrument-options=test 1, test 2
+            ./scripts/run-tests.sh --instrument-options=paramA,paramB,paramC
             
       - name: Generate Test Report
         uses: dorny/test-reporter@v1
