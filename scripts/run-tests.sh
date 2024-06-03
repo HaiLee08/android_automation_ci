@@ -46,5 +46,5 @@ multiple_tests=$(construct_multiple_tests "${param_array[@]}")
 
 # Now you can use the multiple_tests variable in gradlew
 echo "Multiple tests: $multiple_tests"
-./gradlew app:connectedDebugAndroidTest -Pandroid.testInstrumentationRunnerArguments.class="$multiple_tests"
+echo "./gradlew app:connectedDebugAndroidTest -Pandroid.testInstrumentationRunnerArguments.class=$multiple_tests"
 
