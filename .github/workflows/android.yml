@@ -14,7 +14,7 @@ jobs:
     strategy:
       matrix:
         android:
-          - { version: '33', arch: "x86_64", target: "aosp_atd", profile: "Nexus 6", channel: canary}
+          - { version: '33', arch: "x86_64", target: "aosp_atd", profile: "Nexus 6", channel: "canary"}
           # - { version: '33', arch: "x86_64", target: "google_apis", profile: "Pixel XL" }
     steps:
       - name: checkout
