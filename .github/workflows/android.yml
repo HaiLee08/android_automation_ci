@@ -69,8 +69,10 @@ jobs:
           force-avd-creation: false
           emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: true
-          script: ./scripts/run-tests.sh --instrument-options=test 1, test 2
-
+          script: |
+            chmod +x ./scripts/run-tests.sh
+            ./scripts/run-tests.sh --instrument-options=test 1, test 2
+            
       - name: Generate Test Report
         uses: dorny/test-reporter@v1
         if: success() || failure()
