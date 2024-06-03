@@ -13,8 +13,10 @@ construct_multiple_tests() {
     local multiple_tests=""
     for param in "${param_array[@]}"; do
         # Construct the format for each parameter
-        multiple_tests+="com.abc.*.$param\"
+        multiple_tests+="com.abc.*.$param, "
     done
+    # Remove the trailing comma and space
+    multiple_tests="${multiple_tests%, }"
     echo "$multiple_tests"
 }
 
@@ -46,5 +48,5 @@ multiple_tests=$(construct_multiple_tests "${param_array[@]}")
 
 # Now you can use the multiple_tests variable in gradlew
 echo "Multiple tests: $multiple_tests"
-echo "./gradlew app:connectedDebugAndroidTest -Pandroid.testInstrumentationRunnerArguments.class=$multiple_tests"
+./gradlew app:connectedDebugAndroidTest -Pandroid.testInstrumentationRunnerArguments.class="$multiple_tests"
 
