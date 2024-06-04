@@ -16,22 +16,22 @@ jobs:
         include:
           - os: ubuntu-latest
             version: 29
-            target: playstore
-            arch: x86
+            target: google_apis
+            arch: x86_64
             profile: "Nexus 6"
           - os: ubuntu-latest
             version: 30
-            target: aosp_atd
-            arch: x86
+            target: google_apis
+            arch: x86_64
             profile: "Nexus 6"
-          - os: macos-latest
+          - os: ubuntu-latest
             version: 31
             target: google_apis
             arch: x86_64
             profile: "Nexus 6"
           - os: ubuntu-latest
             version: 34
-            target: aosp_atd
+            target: google_apis
             arch: x86_64
             profile: "Nexus 6"
 
@@ -53,8 +53,8 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
-      - name: assemble tests
-        run: ./gradlew assembleAndroidTest
+      # - name: assemble tests
+      #   run: ./gradlew assembleAndroidTest
         
       - name: AVD cache
         uses: actions/cache@v4
@@ -78,7 +78,7 @@ jobs:
         with:
           api-level: ${{ matrix.version }}
           target: ${{ matrix.target }}
-          # profile: ${{ matrix.profile }}
+          profile: ${{ matrix.profile }}
           arch: ${{ matrix.arch }}
           channel: canary
           avd-name: ${{ matrix.profile }} ${{ matrix.version }}
@@ -92,7 +92,7 @@ jobs:
         with:
           api-level: ${{ matrix.version }}
           target: ${{ matrix.target }}
-          # profile: ${{ matrix.profile }}
+          profile: ${{ matrix.profile }}
           arch: ${{ matrix.arch }}
           channel: canary
           avd-name: ${{ matrix.profile }} ${{ matrix.version }}
