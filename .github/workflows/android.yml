@@ -83,6 +83,7 @@ jobs:
           avd-name: Nexus6_${{ matrix.version }}
           ram-size: 2048M
           sdcard-path-or-size: 100M
+          channel: canary
           force-avd-creation: false
           emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: false
@@ -98,6 +99,7 @@ jobs:
           avd-name: Nexus6_${{ matrix.version }}
           ram-size: 2048M
           sdcard-path-or-size: 100M
+          channel: canary
           force-avd-creation: false
           emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: true
