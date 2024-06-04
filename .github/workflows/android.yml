@@ -93,7 +93,7 @@ jobs:
           target: ${{ matrix.target }}
           profile: ${{ matrix.profile }}
           arch: ${{ matrix.arch }}
-          avd-name: ${{ matrix.profile }} ${{ matrix.version }}
+          avd-name: Nexus6_${{ matrix.version }}
           force-avd-creation: false
           emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: true
