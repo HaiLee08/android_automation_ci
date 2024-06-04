@@ -24,16 +24,16 @@ jobs:
           #   target: google_apis
           #   arch: x86_64
           #   profile: "Nexus 6"
-          - os: macos-latest
-            version: 31
+          # - os: macos-latest
+          #   version: 31
+          #   target: google_apis
+          #   arch: arm64-v8a
+          #   profile: "Nexus 6"
+          - os: ubuntu-latest
+            version: 34
             target: google_apis
             arch: x86_64
-            profile: "Nexus 6"
-          # - os: ubuntu-latest
-          #   version: 34
-          #   target: google_apis
-          #   arch: x86_64
-          #   profile: "Nexus 6"
+            profile: "Pixel 6 Pro"
 
           # - { version: '31', arch: "x86_64", target: "google_apis", profile: "Nexus 6"}
           # # - { version: '33', arch: "x86_64", target: "google_apis", profile: "Pixel XL" }
@@ -80,10 +80,9 @@ jobs:
           target: ${{ matrix.target }}
           profile: ${{ matrix.profile }}
           arch: ${{ matrix.arch }}
-          avd-name: Nexus6_${{ matrix.version }}
+          avd-name: Pixel6_${{ matrix.version }}
           ram-size: 2048M
           sdcard-path-or-size: 100M
-          channel: canary
           force-avd-creation: false
           emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: false
@@ -96,10 +95,9 @@ jobs:
           target: ${{ matrix.target }}
           profile: ${{ matrix.profile }}
           arch: ${{ matrix.arch }}
-          avd-name: Nexus6_${{ matrix.version }}
+          avd-name: Pixel6_${{ matrix.version }}
           ram-size: 2048M
           sdcard-path-or-size: 100M
-          channel: canary
           force-avd-creation: false
           emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: true
