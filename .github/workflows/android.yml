@@ -14,26 +14,26 @@ jobs:
     strategy:
       matrix:
         include:
-          - os: ubuntu-latest
-            version: 29
-            target: google_apis
-            arch: x86_64
-            profile: "Nexus 6"
-          - os: ubuntu-latest
-            version: 30
-            target: google_apis
-            arch: x86_64
-            profile: "Nexus 6"
+          # - os: ubuntu-latest
+          #   version: 29
+          #   target: google_apis
+          #   arch: x86_64
+          #   profile: "Nexus 6"
+          # - os: ubuntu-latest
+          #   version: 30
+          #   target: google_apis
+          #   arch: x86_64
+          #   profile: "Nexus 6"
           - os: ubuntu-latest
             version: 31
             target: google_apis
             arch: x86_64
             profile: "Nexus 6"
-          - os: ubuntu-latest
-            version: 34
-            target: google_apis
-            arch: x86_64
-            profile: "Nexus 6"
+          # - os: ubuntu-latest
+          #   version: 34
+          #   target: google_apis
+          #   arch: x86_64
+          #   profile: "Nexus 6"
 
           # - { version: '31', arch: "x86_64", target: "google_apis", profile: "Nexus 6"}
           # # - { version: '33', arch: "x86_64", target: "google_apis", profile: "Pixel XL" }
@@ -53,8 +53,8 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
-      # - name: assemble tests
-      #   run: ./gradlew assembleAndroidTest
+      - name: assemble tests
+        run: ./gradlew assembleAndroidTest
         
       - name: AVD cache
         uses: actions/cache@v4
