@@ -13,7 +13,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        # include:
+        include:
         #   - os: ubuntu-latest
         #     version: 29
         #     target: google_apis
