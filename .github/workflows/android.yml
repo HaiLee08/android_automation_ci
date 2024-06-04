@@ -28,7 +28,7 @@ jobs:
             version: 31
             target: google_apis
             arch: x86_64
-            profile: "Pixel 6 Pro"
+            profile: "Nexus 6"
           # - os: ubuntu-latest
           #   version: 34
           #   target: google_apis
@@ -53,8 +53,8 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
-      - name: assemble tests
-        run: ./gradlew assembleAndroidTest
+      # - name: assemble tests
+      #   run: ./gradlew assembleAndroidTest
         
       - name: AVD cache
         uses: actions/cache@v4
@@ -81,6 +81,8 @@ jobs:
           profile: ${{ matrix.profile }}
           arch: ${{ matrix.arch }}
           avd-name: Nexus6_${{ matrix.version }}
+          ram-size: 2048M
+          sdcard-path-or-size: 100M
           force-avd-creation: false
           emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: false
@@ -94,6 +96,8 @@ jobs:
           profile: ${{ matrix.profile }}
           arch: ${{ matrix.arch }}
           avd-name: Nexus6_${{ matrix.version }}
+          ram-size: 2048M
+          sdcard-path-or-size: 100M
           force-avd-creation: false
           emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: true
