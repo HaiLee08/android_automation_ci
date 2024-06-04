@@ -40,13 +40,7 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v4
-
-      - name: Enable KVM for linux runners
-        if: runner.os == 'Linux'
-        run: |
-          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
-          sudo udevadm control --reload-rules
-          sudo udevadm trigger --name-match=kvm
+        
       - name: Set Up JDK Environment
         uses: actions/setup-java@v3
         with:
@@ -71,13 +65,20 @@ jobs:
             ~/.android/adb*
           key: avd-${{ matrix.version }}-${{ matrix.os }}-${{ matrix.target }}
 
+      - name: Enable KVM for linux runners
+        if: runner.os == 'Linux'
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+
       - name: Create AVD and generate snapshot for caching
         if: steps.avd-cache.outputs.cache-hit != 'true'
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: ${{ matrix.version }}
           target: ${{ matrix.target }}
-          profile: ${{ matrix.profile }}
+          # profile: ${{ matrix.profile }}
           arch: ${{ matrix.arch }}
           channel: canary
           avd-name: ${{ matrix.profile }} ${{ matrix.version }}
@@ -91,7 +92,7 @@ jobs:
         with:
           api-level: ${{ matrix.version }}
           target: ${{ matrix.target }}
-          profile: ${{ matrix.profile }}
+          # profile: ${{ matrix.profile }}
           arch: ${{ matrix.arch }}
           channel: canary
           avd-name: ${{ matrix.profile }} ${{ matrix.version }}
