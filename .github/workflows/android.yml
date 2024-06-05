@@ -108,7 +108,9 @@ jobs:
             adb shell wm size
             adb shell wm density
             ./gradlew app:connectedDebugAndroidTest
-            
+      - name: List devices
+        run: avdmanager list device
+        
       - name: Generate Test Report
         uses: dorny/test-reporter@v1
         if: success() || failure()
