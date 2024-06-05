@@ -80,10 +80,7 @@ jobs:
           target: ${{ matrix.target }}
           profile: ${{ matrix.profile }}
           arch: ${{ matrix.arch }}
-          # channel: canary
-          # avd-name: Nexus6_${{ matrix.version }}
-          # ram-size: 2048M
-          # sdcard-path-or-size: 1000M
+          avd-name: Nexus6_${{ matrix.version }}
           force-avd-creation: false
           emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: false
@@ -96,17 +93,12 @@ jobs:
           target: ${{ matrix.target }}
           profile: ${{ matrix.profile }}
           arch: ${{ matrix.arch }}
-          # channel: canary
-          # avd-name: Nexus6_${{ matrix.version }}
-          # ram-size: 2048M
-          # sdcard-path-or-size: 1000M
+          avd-name: Nexus6_${{ matrix.version }}
           force-avd-creation: false
           emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: true
           script: |
             adb devices
-            adb shell wm size
-            adb shell wm density
             ./gradlew app:connectedDebugAndroidTest
             
       - name: Generate Test Report
