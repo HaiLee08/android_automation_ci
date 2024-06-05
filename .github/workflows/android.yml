@@ -26,9 +26,9 @@ jobs:
           #   profile: "Pixel 4 XL"
           - os: ubuntu-latest
             version: 34
-            target: google_apis
+            target: playstore
             arch: x86_64
-            profile: "Pixel 6 Pro"
+            profile: "Pixel 7 Pro"
           # - os: ubuntu-latest
           #   version: 34
           #   target: aosp_atd
