@@ -25,7 +25,7 @@ jobs:
           #   arch: x86_64
           #   profile: "Pixel 4 XL"
           - os: ubuntu-latest
-            version: 33
+            version: 32
             target: google_apis
             arch: x86_64
             profile: "Pixel 6 Pro"
@@ -80,7 +80,7 @@ jobs:
           target: ${{ matrix.target }}
           profile: ${{ matrix.profile }}
           arch: ${{ matrix.arch }}
-          channel: canary
+          # channel: canary
           # avd-name: Nexus6_${{ matrix.version }}
           # ram-size: 2048M
           # sdcard-path-or-size: 1000M
@@ -96,7 +96,7 @@ jobs:
           target: ${{ matrix.target }}
           profile: ${{ matrix.profile }}
           arch: ${{ matrix.arch }}
-          channel: canary
+          # channel: canary
           # avd-name: Nexus6_${{ matrix.version }}
           # ram-size: 2048M
           # sdcard-path-or-size: 1000M
