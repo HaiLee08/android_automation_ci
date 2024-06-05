@@ -18,24 +18,24 @@ jobs:
           #   version: 29
           #   target: google_apis
           #   arch: x86_64
-          #   profile: "Pixel 6 Pro"
+          #   profile: "Pixel 7 Pro"
           # - os: ubuntu-latest
           #   version: 30
           #   target: google_apis
           #   arch: x86_64
-          #   profile: "Pixel 6 Pro"
+          #   profile: "Pixel 7 Pro"
           # - os: macos-latest
           #   version: 31
           #   target: google_apis
           #   arch: arm64-v8a
-          #   profile: "Pixel 6 Pro"
+          #   profile: "Pixel 7 Pro"
           - os: ubuntu-latest
             version: 34
-            target: google_apis
+            target: playstore
             arch: x86_64
-            profile: "Pixel 6 Pro"
+            profile: "Pixel 7 Pro"
 
-          # - { version: '31', arch: "x86_64", target: "google_apis", profile: "Pixel 6 Pro"}
+          # - { version: '31', arch: "x86_64", target: "google_apis", profile: "Pixel 7 Pro"}
           # # - { version: '33', arch: "x86_64", target: "google_apis", profile: "Pixel XL" }
     steps:
       - name: checkout
@@ -80,9 +80,9 @@ jobs:
           target: ${{ matrix.target }}
           profile: ${{ matrix.profile }}
           arch: ${{ matrix.arch }}
-          avd-name: Pixel6_${{ matrix.version }}
+          avd-name: Nexus6_${{ matrix.version }}
           ram-size: 2048M
-          sdcard-path-or-size: 100M
+          sdcard-path-or-size: 1000M
           force-avd-creation: false
           emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: false
@@ -95,9 +95,9 @@ jobs:
           target: ${{ matrix.target }}
           profile: ${{ matrix.profile }}
           arch: ${{ matrix.arch }}
-          avd-name: Pixel6_${{ matrix.version }}
+          avd-name: Nexus6_${{ matrix.version }}
           ram-size: 2048M
-          sdcard-path-or-size: 100M
+          sdcard-path-or-size: 1000M
           force-avd-creation: false
           emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: true
