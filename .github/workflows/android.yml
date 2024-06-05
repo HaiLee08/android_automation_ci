@@ -99,6 +99,8 @@ jobs:
           disable-animations: true
           script: |
             adb devices
+            adb shell wm size
+            adb shell wm density
             ./gradlew app:connectedDebugAndroidTest
             
       - name: Generate Test Report
