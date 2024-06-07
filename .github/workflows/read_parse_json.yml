@@ -1,0 +1,25 @@
+name: Read and Parse JSON
+
+on:
+  workflow_dispatch:
+    inputs:
+      url_path:
+        default: https://support.oneskyapp.com/hc/en-us/article_attachments/202761727
+        description: Input subset of tests for testing
+        required: false
+
+jobs:
+  read_json:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Read JSON from URL
+        id: read_json
+        run: |
+          content=$(curl -sL ${{ inputs.url_path }})
+          echo "::set-output name=json_content::$content"
+
+      - name: Parse JSON
+        id: parse_json
+        run: |
+          echo "quiz: ${{ fromJson(steps.read_json.outputs.json_content).quiz }}"
+          echo "quiz: ${{ fromJson(steps.read_json.outputs.json_content).maths.q1.question }}"
