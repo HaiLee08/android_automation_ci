@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       url_path:
-        default: https://support.oneskyapp.com/hc/en-us/article_attachments/202761627
+        default: https://support.oneskyapp.com/hc/en-us/article_attachments/202761727
         description: Input subset of tests for testing
         required: false
 
@@ -25,4 +25,5 @@ jobs:
       - name: Parse JSON
         id: parse_json
         run: |
-          echo "fruit: ${{ fromJson(steps.read_json.outputs.json_content).fruit }}"
+          echo "question: ${{ fromJson(fromJson(fromJson(steps.read_json.outputs.json_content).maths).q1).question }}"
+          # fromJSON(toJSON(matrix))
