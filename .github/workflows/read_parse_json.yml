@@ -16,7 +16,11 @@ jobs:
         id: read_json
         run: |
           content=$(curl -sL ${{ inputs.url_path }})
-          echo "::set-output name=json_content::$content"
+          delimiter="$(openssl rand -hex 8)"
+          echo "deployment_matrix<<${delimiter}" >> "${GITHUB_OUTPUT}"
+          echo "$content" >> "${GITHUB_OUTPUT}"
+          echo "${delimiter}" >> "${GITHUB_OUTPUT}"
+          # echo "::set-output name=json_content::$content"
 
       - name: Parse JSON
         id: parse_json
