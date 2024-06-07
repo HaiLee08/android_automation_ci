@@ -10,7 +10,7 @@ on:
 
 jobs:
   read_json:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     steps:
       - name: Read JSON from URL
         id: read_json
