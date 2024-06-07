@@ -25,5 +25,5 @@ jobs:
       - name: Parse JSON
         id: parse_json
         run: |
-          echo "maths: ${{ fromJson(steps.read_json.outputs.json_content).maths }}"
+          echo "question: ${{ fromJson(steps.read_json.outputs.json_content).quiz.maths.q1.question }}"
           # fromJSON(toJSON(matrix))
