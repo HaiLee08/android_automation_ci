@@ -24,16 +24,16 @@ jobs:
           #   target: google_apis
           #   arch: x86_64
           #   profile: "Pixel 4 XL"
+          # - os: ubuntu-latest
+          #   version: 34
+          #   target: google_apis
+          #   arch: x86_64
+          #   profile: "Pixel 7 Pro"
           - os: ubuntu-latest
             version: 34
             target: google_apis
             arch: x86_64
-            profile: "Pixel 7 Pro"
-          # - os: ubuntu-latest
-          #   version: 34
-          #   target: aosp_atd
-          #   arch: x86_64
-          #   profile: "Pixel 4 XL"
+            profile: "Galaxy Nexus"
 
           # - { version: '31', arch: "x86_64", target: "google_apis", profile: "Pixel 4 XL"}
           # # - { version: '33', arch: "x86_64", target: "google_apis", profile: "Pixel XL" }
