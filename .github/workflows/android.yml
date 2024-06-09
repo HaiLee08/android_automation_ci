@@ -80,8 +80,7 @@ jobs:
           target: ${{ matrix.target }}
           profile: ${{ matrix.profile }}
           arch: ${{ matrix.arch }}
-          channel: canary
-          # avd-name: Nexus6_${{ matrix.version }}
+          avd-name: Nexus6_${{ matrix.version }}
           force-avd-creation: false
           emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: false
@@ -99,8 +98,7 @@ jobs:
           target: ${{ matrix.target }}
           profile: ${{ matrix.profile }}
           arch: ${{ matrix.arch }}
-          channel: canary
-          # avd-name: Nexus6_${{ matrix.version }}
+          avd-name: Nexus6_${{ matrix.version }}
           force-avd-creation: false
           emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: true
