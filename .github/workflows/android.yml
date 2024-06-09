@@ -42,19 +42,19 @@ jobs:
         uses: actions/checkout@v4
         
       - name: Set Up JDK Environment
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '17'
 
       - name: Setup Gradle
-        uses: gradle/gradle-build-action@v2
+        uses: gradle/gradle-build-action@v3
 
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
-      # - name: assemble tests
-      #   run: ./gradlew assembleAndroidTest
+      - name: Assemble tests
+        run: ./gradlew assembleAndroidTest
         
       - name: AVD cache
         uses: actions/cache@v4
