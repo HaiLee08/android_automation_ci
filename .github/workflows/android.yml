@@ -86,10 +86,6 @@ jobs:
           disable-animations: false
           script: |
              echo "Generated AVD snapshot for caching."
-             avdmanager list device
-             adb devices
-             adb shell wm size
-             adb shell wm density
 
       - name: run tests
         uses: reactivecircus/android-emulator-runner@v2
@@ -107,10 +103,13 @@ jobs:
             # net.ipv6.conf.default.disable_ipv6 = 1
             # net.ipv6.conf.lo.disable_ipv6 = 1
             cat /proc/sys/net/ipv6/conf/all/disable_ipv6
+            cat /proc/sys/net/ipv6/conf/default/disable_ipv6
+            cat /proc/sys/net/ipv6/conf/lo/disable_ipv6
             sudo sysctl net.ipv6.conf.all.disable_ipv6=0
+            sudo sysctl net.ipv6.conf.default.disable_ipv6=0
+            sudo sysctl net.ipv6.conf.lo.disable_ipv6=0
             cat /proc/sys/net/ipv6/conf/all/disable_ipv6
-            avdmanager list device
-            adb devices
+            cat /proc/sys/net/ipv6/conf/default/disable_ipv6
             adb shell wm size
             adb shell wm density
             ./gradlew app:connectedDebugAndroidTest
