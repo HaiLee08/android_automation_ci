@@ -31,9 +31,10 @@ jobs:
           #   profile: "Pixel 7 Pro"
 
           - os: macos-latest
-            version: 30
-            arch: x86_64
-            profile: "Nexus 5X"
+            version: 34
+            target: google_apis
+            arch: arm64-v8
+            profile: "Nexus 6"
             
           # - os: ubuntu-latest
           #   version: 34
@@ -83,7 +84,7 @@ jobs:
         uses: reactivecircus/android-emulator-runner@v2.21.0
         with:
           api-level: ${{ matrix.version }}
-          #target: ${{ matrix.target }}
+          target: ${{ matrix.target }}
           profile: ${{ matrix.profile }}
           arch: ${{ matrix.arch }}
           force-avd-creation: false
@@ -96,7 +97,7 @@ jobs:
         uses: reactivecircus/android-emulator-runner@v2.21.0
         with:
           api-level: ${{ matrix.version }}
-          #target: ${{ matrix.target }}
+          target: ${{ matrix.target }}
           profile: ${{ matrix.profile }}
           arch: ${{ matrix.arch }}
           force-avd-creation: false
