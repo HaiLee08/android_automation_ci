@@ -102,6 +102,7 @@ jobs:
           # force-avd-creation: false
           # emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           # disable-animations: true
+          channel: dev
           script: |
             # net.ipv6.conf.all.disable_ipv6 = 1
             # net.ipv6.conf.default.disable_ipv6 = 1
