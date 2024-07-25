@@ -31,10 +31,10 @@ jobs:
           #   profile: "Pixel 7 Pro"
 
           - os: macos-latest
-            version: 33
+            version: 30
             target: google_apis
             arch: x86_64
-            profile: "Galaxy Nexus"
+            profile: "Nexus 6"
             
           # - os: ubuntu-latest
           #   version: 34
