@@ -29,11 +29,18 @@ jobs:
           #   target: google_apis
           #   arch: x86_64
           #   profile: "Pixel 7 Pro"
-          - os: ubuntu-latest
-            version: 34
+
+          - os: macos-latest
+            version: 33
             target: google_apis
             arch: x86_64
-            profile: "Galaxy Nexus"
+            profile: "Nexus 6"
+            
+          # - os: ubuntu-latest
+          #   version: 34
+          #   target: google_apis
+          #   arch: x86_64
+          #   profile: "Galaxy Nexus"
 
           # - { version: '31', arch: "x86_64", target: "google_apis", profile: "Pixel 4 XL"}
           # # - { version: '33', arch: "x86_64", target: "google_apis", profile: "Pixel XL" }
@@ -102,14 +109,15 @@ jobs:
             # net.ipv6.conf.all.disable_ipv6 = 1
             # net.ipv6.conf.default.disable_ipv6 = 1
             # net.ipv6.conf.lo.disable_ipv6 = 1
-            cat /proc/sys/net/ipv6/conf/all/disable_ipv6
-            cat /proc/sys/net/ipv6/conf/default/disable_ipv6
-            cat /proc/sys/net/ipv6/conf/lo/disable_ipv6
-            sudo sysctl net.ipv6.conf.all.disable_ipv6=0
-            sudo sysctl net.ipv6.conf.default.disable_ipv6=0
-            sudo sysctl net.ipv6.conf.lo.disable_ipv6=0
-            cat /proc/sys/net/ipv6/conf/all/disable_ipv6
-            cat /proc/sys/net/ipv6/conf/default/disable_ipv6
+            
+            # cat /proc/sys/net/ipv6/conf/all/disable_ipv6
+            # cat /proc/sys/net/ipv6/conf/default/disable_ipv6
+            # cat /proc/sys/net/ipv6/conf/lo/disable_ipv6
+            # sudo sysctl net.ipv6.conf.all.disable_ipv6=0
+            # sudo sysctl net.ipv6.conf.default.disable_ipv6=0
+            # sudo sysctl net.ipv6.conf.lo.disable_ipv6=0
+            # cat /proc/sys/net/ipv6/conf/all/disable_ipv6
+            # cat /proc/sys/net/ipv6/conf/default/disable_ipv6
             adb shell wm size
             adb shell wm density
             ./gradlew app:connectedDebugAndroidTest
