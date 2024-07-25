@@ -33,8 +33,8 @@ jobs:
           - os: macos-latest
             version: 33
             target: aosp_atd
-            arch: x86_64
-            profile: "Pixel 6 Pro"
+            arch: arm64-v8a
+            profile: "Nexus 6"
             
           # - os: ubuntu-latest
           #   version: 34
@@ -60,9 +60,16 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
-      - name: Assemble tests
-        run: ./gradlew assembleAndroidTest
-        
+      # - name: Assemble tests
+      #   run: ./gradlew assembleAndroidTest
+
+      - name: Enable KVM for linux runners
+        if: runner.os == 'Linux'
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+          
       - name: AVD cache
         uses: actions/cache@v4
         id: avd-cache
@@ -72,27 +79,20 @@ jobs:
             ~/.android/adb*
           key: avd-${{ matrix.version }}-${{ matrix.os }}-${{ matrix.target }}
 
-      - name: Enable KVM for linux runners
-        if: runner.os == 'Linux'
-        run: |
-          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
-          sudo udevadm control --reload-rules
-          sudo udevadm trigger --name-match=kvm
-
-      - name: Create AVD and generate snapshot for caching
-        if: steps.avd-cache.outputs.cache-hit != 'true'
-        uses: reactivecircus/android-emulator-runner@v2
-        with:
-          api-level: ${{ matrix.version }}
-          target: ${{ matrix.target }}
-          profile: ${{ matrix.profile }}
-          arch: ${{ matrix.arch }}
-          force-avd-creation: false
-          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
-          disable-animations: false
-          channel: canary
-          script: |
-             echo "Generated AVD snapshot for caching."
+      # - name: Create AVD and generate snapshot for caching
+      #   if: steps.avd-cache.outputs.cache-hit != 'true'
+      #   uses: reactivecircus/android-emulator-runner@v2
+      #   with:
+      #     api-level: ${{ matrix.version }}
+      #     target: ${{ matrix.target }}
+      #     profile: ${{ matrix.profile }}
+      #     arch: ${{ matrix.arch }}
+      #     force-avd-creation: false
+      #     emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+      #     disable-animations: false
+      #     channel: canary
+      #     script: |
+      #        echo "Generated AVD snapshot for caching."
 
       - name: run tests
         uses: reactivecircus/android-emulator-runner@v2
@@ -102,7 +102,7 @@ jobs:
           profile: ${{ matrix.profile }}
           arch: ${{ matrix.arch }}
           force-avd-creation: false
-          emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+          # emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: true
           channel: canary
           script: |
