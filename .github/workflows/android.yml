@@ -33,7 +33,7 @@ jobs:
           - os: macos-latest
             version: 30
             target: google_apis
-            arch: x86_64
+            arch: arm64-v8a
             profile: "Nexus 6"
             
           # - os: ubuntu-latest
@@ -116,8 +116,8 @@ jobs:
             # sudo sysctl net.ipv6.conf.lo.disable_ipv6=0
             # cat /proc/sys/net/ipv6/conf/all/disable_ipv6
             # cat /proc/sys/net/ipv6/conf/default/disable_ipv6
-            adb shell wm size
-            adb shell wm density
+            # adb shell wm size
+            # adb shell wm density
             ./gradlew app:connectedDebugAndroidTest
             
       - name: List devices
