@@ -32,7 +32,7 @@ jobs:
 
           - os: macos-latest
             version: 33
-            target: playstore
+            target: aosp_atd
             arch: arm64-v8a
             profile: "Pixel 6 Pro"
             
