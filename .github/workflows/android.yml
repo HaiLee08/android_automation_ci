@@ -30,11 +30,12 @@ jobs:
           #   arch: x86_64
           #   profile: "Pixel 7 Pro"
 
-          - os: macos-latest
+          - os: macos-13
+            #macos-latest
             version: 34
             target: google_apis
             arch: x86_64
-            profile: "Nexus 6"
+            profile: "Pixel 7 Pro"
             
           # - os: ubuntu-latest
           #   version: 34
