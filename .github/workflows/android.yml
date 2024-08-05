@@ -30,12 +30,12 @@ jobs:
           #   arch: x86_64
           #   profile: "Pixel 7 Pro"
 
-          - os: macos-13
-            #macos-latest
-            version: 34
-            target: google_apis
-            arch: x86_64
-            profile: "Nexus 6"
+          # - os: macos-13
+          #   #macos-latest
+          #   version: 34
+          #   target: google_apis
+          #   arch: x86_64
+          #   profile: "Nexus 6"
             
           - os: ubuntu-latest
             version: 34
@@ -96,6 +96,7 @@ jobs:
           script: |
              adb devices
              echo "Generated AVD snapshot for caching."
+             
       - name: run tests
         uses: reactivecircus/android-emulator-runner@v2
         with:
@@ -113,11 +114,22 @@ jobs:
             adb shell wm size
             adb shell wm density
             ./gradlew app:connectedDebugAndroidTest
-        
-      - name: Generate Test Report
+
+      - name: Upload reports on API ${{ matrix.version }}
+        if: success() || failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-suite-${{ matrix.version }}
+          path: |
+            app/build/outputs/*/connected/*
+            app/build/reports/androidTests/connected/**
+            
+      - name: Generate reports on API ${{ matrix.version }}
         uses: dorny/test-reporter@v1
         if: success() || failure()
         with:
-          name: Test Report on ${{ matrix.api-level }}
-          path: app/build/outputs/androidTest-results/connected/*.xml
-          reporter: java-juni
+          name: Report on API ${{ matrix.version }}
+          path: app/build/outputs/*/connected/**/flavors/**/*.xml
+          reporter: java-junit
+          fail-on-empty: 'false'
+          fail-on-error: 'false'
