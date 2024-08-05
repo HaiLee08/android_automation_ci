@@ -94,8 +94,6 @@ jobs:
           emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: false
           script: |
-             avdmanager list avd
-             emulator -list-avds
              adb devices
              echo "Generated AVD snapshot for caching."
       - name: run tests
@@ -111,8 +109,6 @@ jobs:
           emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: true
           script: |
-            avdmanager list avd
-            emulator -list-avds
             adb devices
             adb shell wm size
             adb shell wm density
