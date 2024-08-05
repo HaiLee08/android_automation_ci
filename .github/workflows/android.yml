@@ -35,13 +35,13 @@ jobs:
             version: 34
             target: google_apis
             arch: x86_64
-            profile: "Pixel 6 Pro"
+            profile: "Nexus 6"
             
-          # - os: ubuntu-latest
-          #   version: 34
-          #   target: google_apis
-          #   arch: x86_64
-          #   profile: "Nexus 5X"
+          - os: ubuntu-latest
+            version: 34
+            target: google_apis
+            arch: x86_64
+            profile: "Nexus 6"
 
           # - { version: '31', arch: "x86_64", target: "google_apis", profile: "Pixel 4 XL"}
           # # - { version: '33', arch: "x86_64", target: "google_apis", profile: "Pixel XL" }
