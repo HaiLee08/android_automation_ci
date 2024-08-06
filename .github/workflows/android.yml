@@ -36,7 +36,7 @@ jobs:
             version: 34
             target: aosp_atd
             arch: x86_64
-            profile: "Pixel 6 Pro"
+            profile: "Pixel 6"
             channel: canary
             
           # - os: ubuntu-latest
