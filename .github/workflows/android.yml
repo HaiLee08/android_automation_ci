@@ -91,6 +91,9 @@ jobs:
           profile: ${{ matrix.profile }}
           arch: ${{ matrix.arch }}
           avd-name: nexus_6
+          ram-size: 4096M
+          ndk: 21.0.6113669
+          cmake: 3.10.2.4988404
           force-avd-creation: false
           channel: ${{ matrix.channel }}
           emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
@@ -107,6 +110,9 @@ jobs:
           profile: ${{ matrix.profile }}
           arch: ${{ matrix.arch }}
           avd-name: nexus_6
+          ram-size: 4096M
+          ndk: 21.0.6113669
+          cmake: 3.10.2.4988404
           force-avd-creation: false
           channel: ${{ matrix.channel }}
           emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
