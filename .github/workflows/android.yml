@@ -33,9 +33,10 @@ jobs:
           - os: macos-13
             #macos-latest
             version: 31
-            target: google_apis
+            target: aosp_atd
             arch: x86_64
             profile: "Nexus 6"
+            channel: canary
             
           # - os: ubuntu-latest
           #   version: 34
@@ -90,6 +91,7 @@ jobs:
           arch: ${{ matrix.arch }}
           avd-name: nexus_6
           force-avd-creation: false
+          channel: ${{ matrix.channel }}
           emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: false
           script: |
@@ -105,6 +107,7 @@ jobs:
           arch: ${{ matrix.arch }}
           avd-name: nexus_6
           force-avd-creation: false
+          channel: ${{ matrix.channel }}
           emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: true
           script: |
