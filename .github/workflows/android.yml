@@ -84,7 +84,7 @@ jobs:
 
       - name: Create AVD and generate snapshot for caching
         if: steps.avd-cache.outputs.cache-hit != 'true'
-        uses: reactivecircus/android-emulator-runner@v2
+        uses: reactivecircus/android-emulator-runner@v2.28.0
         with:
           api-level: ${{ matrix.version }}
           target: ${{ matrix.target }}
@@ -92,6 +92,7 @@ jobs:
           arch: ${{ matrix.arch }}
           avd-name: nexus_6
           ram-size: 4096M
+          heap-size: 512M
           ndk: 21.0.6113669
           cmake: 3.10.2.4988404
           force-avd-creation: false
@@ -103,7 +104,7 @@ jobs:
              echo "Generated AVD snapshot for caching."
              
       - name: run tests
-        uses: reactivecircus/android-emulator-runner@v2
+        uses: reactivecircus/android-emulator-runner@v2.28.0
         with:
           api-level: ${{ matrix.version }}
           target: ${{ matrix.target }}
@@ -111,6 +112,7 @@ jobs:
           arch: ${{ matrix.arch }}
           avd-name: nexus_6
           ram-size: 4096M
+          heap-size: 512M
           ndk: 21.0.6113669
           cmake: 3.10.2.4988404
           force-avd-creation: false
