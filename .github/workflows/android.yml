@@ -33,7 +33,7 @@ jobs:
 
           - os: macos-13
             #macos-latest
-            version: 29
+            version: 30
             target: aosp_atd
             arch: x86_64
             profile: "Nexus 6"
@@ -107,10 +107,10 @@ jobs:
         uses: reactivecircus/android-emulator-runner@v2.28.0
         with:
           api-level: ${{ matrix.version }}
-          #target: ${{ matrix.target }}
+          target: ${{ matrix.target }}
           profile: ${{ matrix.profile }}
-          #arch: ${{ matrix.arch }}
-          #channel: ${{ matrix.channel }}
+          arch: ${{ matrix.arch }}
+          channel: ${{ matrix.channel }}
           # avd-name: nexus_6
           # ram-size: 4096M
           # heap-size: 512M
