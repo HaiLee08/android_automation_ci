@@ -33,7 +33,7 @@ jobs:
 
           - os: macos-13
             #macos-latest
-            version: 30
+            version: 29
             target: aosp_atd
             arch: x86_64
             profile: "Nexus 6"
