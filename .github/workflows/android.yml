@@ -33,7 +33,7 @@ jobs:
 
           - os: macos-13
             #macos-latest
-            version: 31
+            version: 30
             target: aosp_atd
             arch: x86_64
             profile: "Nexus 6"
@@ -139,7 +139,7 @@ jobs:
         if: success() || failure()
         with:
           name: Report on API ${{ matrix.version }}
-          path: app/build/outputs/*/connected/**/flavors/**/*.xml
+          path: app/build/outputs/androidTest-results/connected/*.xml
           reporter: java-junit
           fail-on-empty: 'false'
           fail-on-error: 'false'
