@@ -33,10 +33,10 @@ jobs:
 
           - os: macos-13
             #macos-latest
-            version: 30
+            version: 34
             target: aosp_atd
             arch: x86_64
-            profile: "Galaxy Nexus"
+            profile: "Pixel 6 Pro"
             channel: canary
             
           # - os: ubuntu-latest
