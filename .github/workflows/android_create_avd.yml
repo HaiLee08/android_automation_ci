@@ -13,8 +13,9 @@ jobs:
     runs-on: macos-latest
     strategy:
      matrix:
-       api: [29-30]
-
+       include:
+         - api: 29
+         - api: 30
     steps:
     - uses: actions/checkout@v4
     
@@ -29,10 +30,6 @@ jobs:
 
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
-    
-    #    - name: build
-    #  run: |
-      #    ./gradlew :app:assembleDebug  :app:assembleDebugAndroidTest
 
     - name: create AVD
       run: |
@@ -166,7 +163,7 @@ jobs:
       run: |
         $ANDROID_HOME/platform-tools/adb exec-out screencap -p > screen.png
 
-    - uses: actions/upload-artifact@v2
+    - uses: actions/upload-artifact@v4
       with:
         name: screen-${{matrix.api}}.png
         path: screen.png
