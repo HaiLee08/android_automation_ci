@@ -111,12 +111,10 @@ jobs:
           profile: ${{ matrix.profile }}
           arch: ${{ matrix.arch }}
           channel: ${{ matrix.channel }}
-          ndk: 21.0.6113669
-          cmake: 3.10.2.4988404
+          ram-size: 4096M
+          heap-size: 512M
           emulator-boot-timeout: 300000
           script: |
-                  chmod +x ./scripts/waitingemulatorboot.sh
-                  ./scripts/waitingemulatorboot.sh
                   ./gradlew connectedCheck
              
       - name: run tests
@@ -128,10 +126,8 @@ jobs:
           arch: ${{ matrix.arch }}
           channel: ${{ matrix.channel }}
           # avd-name: nexus_6
-          # ram-size: 4096M
-          # heap-size: 512M
-          ndk: 21.0.6113669
-          cmake: 3.10.2.4988404
+          ram-size: 4096M
+          heap-size: 512M
           emulator-boot-timeout: 300000
           # force-avd-creation: false
           # emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
