@@ -1,0 +1,172 @@
+name: Android CI
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: write
+  checks: write
+
+jobs:
+  build:
+    runs-on: macos-latest
+    strategy:
+     matrix:
+       api: [29-30]
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set Up JDK Environment
+      uses: actions/setup-java@v4
+      with:
+          distribution: 'temurin'
+          java-version: '17'
+
+    - name: Setup Gradle
+      uses: gradle/gradle-build-action@v3
+
+    - name: Grant execute permission for gradlew
+      run: chmod +x gradlew
+    
+    #    - name: build
+    #  run: |
+      #    ./gradlew :app:assembleDebug  :app:assembleDebugAndroidTest
+
+    - name: create AVD
+      run: |
+        export API=`echo ${{matrix.api}}|cut -f 2 -d'-'`
+        if [ $API == 29 ]
+        then
+          export PACKAGE="system-images;android-${API};google_apis;x86"
+          export ABI="google_apis/x86"
+        else
+          export PACKAGE="system-images;android-${API};google_apis;x86_64"
+          export ABI="google_apis/x86_64"
+        fi
+
+        export EMULATOR_NAME="${EMULATOR}_API${API}"
+        echo y | $ANDROID_HOME/tools/bin/sdkmanager --install $PACKAGE
+        echo no | "$ANDROID_HOME/tools/bin/avdmanager" create avd -n TestAvd -d pixel_xl --abi $ABI --package $PACKAGE --force
+        echo "AVD created:"
+        "$ANDROID_HOME/emulator/emulator" -list-avds
+
+    - name: accel check
+      run: |
+        "$ANDROID_HOME/emulator/emulator" -accel-check
+
+    - name: modify config.ini
+      run: |
+        echo 'config.ini'
+        cat ~/.android/avd/TestAvd.avd/config.ini
+        echo 'hw.ramSize=2048MB' >> ~/.android/avd/TestAvd.avd/config.ini
+        echo '== config.ini modified'
+        cat ~/.android/avd/TestAvd.avd/config.ini
+
+    - name: run emulator
+      continue-on-error: true
+      run: |
+        set +e
+        nohup "$ANDROID_HOME/emulator/emulator" -avd TestAvd -no-snapshot -no-window -no-audio -no-boot-anim -accel on -wipe-data 2>&1 &
+        
+        echo "Waiting for device..."
+        $ANDROID_HOME/platform-tools/adb wait-for-device shell true
+        echo "Android is booting..."
+        
+        EMU_BOOTED=0
+        n=0
+        first_launcher=1
+        echo 1 > /tmp/failed
+        while [[ $EMU_BOOTED = 0 ]];do
+            echo "Test for current focus"
+            #        $ANDROID_HOME/platform-tools/adb shell dumpsys window
+            CURRENT_FOCUS=`$ANDROID_HOME/platform-tools/adb shell dumpsys window 2>/dev/null | grep -i mCurrentFocus`
+            echo "Current focus: ${CURRENT_FOCUS}"
+
+            case $CURRENT_FOCUS in
+            *"Launcher"*)
+              if [[ $first_launcher == 1 ]]; then
+                echo "Launcher seems to be ready, wait 10 sec for another popup..."
+                sleep 10
+                first_launcher=0
+              else
+                echo "Launcher is ready, Android boot completed"
+                EMU_BOOTED=1
+                rm /tmp/failed
+              fi
+            ;;
+            *"Not Responding: com.android.systemui"*)
+              echo "Dismiss System UI isn't responding alert"
+              adb shell input keyevent KEYCODE_ENTER
+              adb shell input keyevent KEYCODE_DPAD_DOWN
+              adb shell input keyevent KEYCODE_ENTER
+              first_launcher=1
+            ;;
+            *"Not Responding: com.google.android.gms"*)
+              echo "Dismiss GMS isn't responding alert"
+              adb shell input keyevent KEYCODE_ENTER
+              first_launcher=1
+            ;;
+            *"Not Responding: system"*)
+              echo "Dismiss Process system isn't responding alert"
+              adb shell input keyevent KEYCODE_ENTER
+              first_launcher=1
+            ;;
+            *"ConversationListActivity"*)
+              echo "Close Messaging app"
+              adb shell input keyevent KEYCODE_ENTER
+              first_launcher=1
+            ;;
+            *)
+              n=$((n + 1))
+              echo "Waiting Android to boot 10 sec ($n)..."
+              sleep 10
+              if [ $n -gt 60 ]; then
+                  echo "Android Emulator does not start in 10 minutes"
+                  exit 2
+              fi
+            ;;
+            esac
+        done
+        echo "Android Emulator started."
+
+    - name: access emulator with adb
+      run: |
+        if test -s /tmp/failed; then 
+          echo "Skip"
+        else
+          "$ANDROID_HOME/platform-tools/adb" shell ls || true
+        fi
+
+    - name: show emulator log
+      run: |
+        test -f nohup.out && cat nohup.out || echo 'no nohup.out'
+
+#    - name: install apk
+#      run: |
+  #        $ANDROID_HOME/platform-tools/adb install app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk
+  #      $ANDROID_HOME/platform-tools/adb install app/build/outputs/apk/debug/app-debug.apk
+
+    - name: run test
+      continue-on-error: true
+      run: |
+        if test -s /tmp/failed; then 
+          echo "Skip"
+        else
+            CURRENT_FOCUS=`$ANDROID_HOME/platform-tools/adb shell dumpsys window 2>/dev/null | grep -i mCurrentFocus`
+            if [[ CURRENT_FOCUS != *"Launcher"* ]]; then
+              adb shell input keyevent KEYCODE_ENTER
+            fi
+          ./gradlew connectedAndroidTest
+        fi
+        #$ANDROID_HOME/platform-tools/adb shell am instrument -w -m -e debug false -e class 'vsedoli.espressodemo.ExampleInstrumentedTest' vsedoli.espressodemo.test/androidx.test.runner.AndroidJUnitRunner
+
+    - name: grab screen
+      run: |
+        $ANDROID_HOME/platform-tools/adb exec-out screencap -p > screen.png
+
+    - uses: actions/upload-artifact@v2
+      with:
+        name: screen-${{matrix.api}}.png
+        path: screen.png
