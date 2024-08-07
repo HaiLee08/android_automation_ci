@@ -40,12 +40,9 @@ while [[ $EMU_BOOTED == 0 ]]; do
             ;;
         *)
             n=$((n + 1))
-            echo "Waiting Android to boot 1 sec ($n)..."
-            sleep 1
-            if [[ $n -gt 60 ]]; then
-                echo "Android Emulator does not start in 10 minutes"
-                exit 2
-            fi
+            echo "Waiting Android to boot 5 sec ($n)..."
+            sleep 5
+            exit 1
             ;;
     esac
 done
