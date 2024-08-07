@@ -33,7 +33,7 @@ jobs:
 
           - os: macos-13
             #macos-latest
-            version: 30
+            version: 34
             target: aosp_atd
             arch: x86_64
             profile: "Nexus 6"
@@ -102,9 +102,22 @@ jobs:
       #     script: |
       #        adb devices
       #        echo "Generated AVD snapshot for caching."
+
+      - name: Connect Emulator
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: ${{ matrix.version }}
+          target: ${{ matrix.target }}
+          profile: ${{ matrix.profile }}
+          arch: ${{ matrix.arch }}
+          channel: ${{ matrix.channel }}
+          ndk: 21.0.6113669
+          cmake: 3.10.2.4988404
+          emulator-boot-timeout: 300000
+          script: ./gradlew connectedCheck
              
       - name: run tests
-        uses: reactivecircus/android-emulator-runner@v2.28.0
+        uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: ${{ matrix.version }}
           target: ${{ matrix.target }}
@@ -114,8 +127,9 @@ jobs:
           # avd-name: nexus_6
           # ram-size: 4096M
           # heap-size: 512M
-          # ndk: 21.0.6113669
-          # cmake: 3.10.2.4988404
+          ndk: 21.0.6113669
+          cmake: 3.10.2.4988404
+          emulator-boot-timeout: 300000
           # force-avd-creation: false
           # emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           # disable-animations: true
