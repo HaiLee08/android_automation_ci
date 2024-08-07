@@ -38,11 +38,6 @@ while [[ $EMU_BOOTED == 0 ]]; do
             adb shell input keyevent KEYCODE_ENTER
             first_launcher=1
             ;;
-        *"ConversationListActivity"*)
-            echo "Close Messaging app"
-            adb shell input keyevent KEYCODE_ENTER
-            first_launcher=1
-            ;;
         *)
             n=$((n + 1))
             echo "Waiting Android to boot 1 sec ($n)..."
