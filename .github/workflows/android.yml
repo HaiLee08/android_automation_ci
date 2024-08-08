@@ -119,19 +119,20 @@ jobs:
                   sleep 30
                   screencapture screenshot.jpg
                   adb exec-out screencap -p > screen.png
-                  brew install ffmpeg
-                  $ANDROID_HOME/tools/emulator -port 18725 -verbose -no-window -no-audio -gpu swiftshader_indirect @test &
-                  ffmpeg -f avfoundation -i 0 -t 120 out.mov
+                  # brew install ffmpeg
+                  # $ANDROID_HOME/tools/emulator -port 18725 -verbose -no-window -no-audio -gpu swiftshader_indirect @test &
+                  # ffmpeg -f avfoundation -i 0 -t 120 out.mov
                   ./gradlew connectedCheck
 
-      - name: upload video
-        if: success() || failure()
-        uses: actions/upload-artifact@v4
-        with:
-          name: out
-          path: out.mov
+      # - name: upload video
+      #   if: success() || failure()
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: out
+      #     path: out.mov
           
-      - uses: actions/upload-artifact@v4
+      - name: upload screenshot
+        uses: actions/upload-artifact@v4
         if: success() || failure()
         with:
           name: screenshot.jpg
