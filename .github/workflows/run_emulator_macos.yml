@@ -14,6 +14,12 @@ jobs:
     runs-on: macos-13
   
     steps: 
+       - name: Set Up JDK Environment
+         uses: actions/setup-java@v4
+         with:
+            distribution: 'temurin'
+            java-version: '17'
+            
        - name: Create Android emulator
          run: |
           # Install AVD files
