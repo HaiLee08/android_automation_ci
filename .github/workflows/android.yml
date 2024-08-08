@@ -149,7 +149,7 @@ jobs:
           echo "Starting emulator and waiting for boot to complete...."
           ls -la $ANDROID_HOME/emulator
           $ANDROID_HOME/emulator/emulator -port 5556 -avd test1 -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim &
-          adb wait-for-device -s emulator-5556 shell 'while [[ -z $(getprop sys.boot_completed | tr -d '\r') ]]; do echo "wait..."; sleep 1; done; input keyevent 82'
+          $ANDROID_HOME/platform-tools/adb -s emulator-5556 shell 'while [[ -z $(getprop sys.boot_completed | tr -d '\r') ]]; do echo "wait..."; sleep 1; done; input keyevent 82'
           echo "Emulator has finished booting"
           adb devices
           sleep 30
