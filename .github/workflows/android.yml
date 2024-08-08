@@ -116,6 +116,7 @@ jobs:
           emulator-boot-timeout: 300000
           script: |
                   adb devices
+                  avdmanager list device
                   sleep 30
                   screencapture screenshot.jpg
                   adb exec-out screencap -p > screen.png
@@ -136,6 +137,7 @@ jobs:
           path: screenshot.jpg
 
       - name: Create Android emulator
+        if: success() || failure()
         run: |
           # Create emulator
           $ANDROID_HOME/tools/bin/avdmanager create avd -n test -d pixel --package 'system-images;android-34;aosp_atd;x86_64'
@@ -164,6 +166,7 @@ jobs:
           fi
 
       - name: Start Android emulator
+        if: success() || failure()
         run: |
           echo "Starting emulator and waiting for boot to complete...."
           ls -la $ANDROID_HOME/emulator
@@ -176,11 +179,13 @@ jobs:
           $ANDROID_HOME/platform-tools/adb exec-out screencap -p > emulator1.png
 
       - uses: actions/upload-artifact@v4
+        if: success() || failure()
         with:
           name: screenshot1.jpg
           path: screenshot1.jpg
           
       - uses: actions/upload-artifact@v4
+        if: success() || failure()
         with:
           name: emulator1.png
           path: emulator1.png
