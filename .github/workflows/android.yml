@@ -140,21 +140,21 @@ jobs:
         if: success() || failure()
         run: |
           # Create emulator
-          $ANDROID_HOME/tools/bin/avdmanager create avd -n test1 -d pixel --package 'system-images;android-34;aosp_atd;x86_64' --device 'Nexus 6'
-          $ANDROID_HOME/emulator/emulator -list-avds
+          avdmanager create avd -n test1 -d pixel --package 'system-images;android-34;aosp_atd;x86_64' --device 'Nexus 6'
+          emulator -list-avds
 
       - name: Start Android emulator
         if: success() || failure()
         run: |
           echo "Starting emulator and waiting for boot to complete...."
           ls -la $ANDROID_HOME/emulator
-          nohup $ANDROID_HOME/tools/emulator -avd test1 -gpu host -no-audio -no-boot-anim -camera-back none -camera-front none -qemu -m 2048 2>&1 &
-          $ANDROID_HOME/platform-tools/adb wait-for-device shell 'while [[ -z $(getprop sys.boot_completed | tr -d '\r') ]]; do echo "wait..."; sleep 1; done; input keyevent 82'
+          nohup emulator -avd test1 -gpu host -no-audio -no-boot-anim -camera-back none -camera-front none -qemu -m 2048 2>&1 &
+          adb wait-for-device shell 'while [[ -z $(getprop sys.boot_completed | tr -d '\r') ]]; do echo "wait..."; sleep 1; done; input keyevent 82'
           echo "Emulator has finished booting"
-          $ANDROID_HOME/platform-tools/adb devices
+          adb devices
           sleep 30
           screencapture screenshot1.jpg
-          $ANDROID_HOME/platform-tools/adb exec-out screencap -p > emulator1.png
+          adb exec-out screencap -p > emulator1.png
 
       - uses: actions/upload-artifact@v4
         if: success() || failure()
