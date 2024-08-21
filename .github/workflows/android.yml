@@ -31,8 +31,7 @@ jobs:
           #   arch: x86_64
           #   profile: "Pixel 7 Pro"
 
-          - os: macos-13
-            #macos-latest
+          - os: macos-latest
             version: 34
             target: aosp_atd
             arch: x86_64
@@ -117,7 +116,7 @@ jobs:
           script: |
                   adb devices
                   avdmanager list device
-                  sleep 30
+                  sleep 5
                   screencapture screenshot.jpg
                   adb exec-out screencap -p > screen.png
                   ./gradlew connectedCheck
@@ -136,37 +135,37 @@ jobs:
           name: screenshot.jpg
           path: screenshot.jpg
 
-      - name: Create Android emulator
-        if: success() || failure()
-        run: |
-          # Create emulator
-          avdmanager create avd -n test1 --package 'system-images;android-34;aosp_atd;x86_64' --device 'Nexus 6'
-          emulator -list-avds
+      # - name: Create Android emulator
+      #   if: success() || failure()
+      #   run: |
+      #     # Create emulator
+      #     avdmanager create avd -n test1 --package 'system-images;android-34;aosp_atd;x86_64' --device 'Nexus 6'
+      #     emulator -list-avds
 
-      - name: Start Android emulator
-        if: success() || failure()
-        run: |
-          echo "Starting emulator and waiting for boot to complete...."
-          ls -la $ANDROID_HOME/emulator
-          $ANDROID_HOME/emulator/emulator -port 5556 -avd test1 -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim &
-          $ANDROID_HOME/platform-tools/adb -s test1 shell 'while [[ -z $(getprop sys.boot_completed | tr -d '\r') ]]; do echo "wait..."; sleep 1; done; input keyevent 82'
-          echo "Emulator has finished booting"
-          adb devices
-          sleep 30
-          screencapture screenshot1.jpg
-          adb exec-out screencap -p > emulator1.png
+      # - name: Start Android emulator
+      #   if: success() || failure()
+      #   run: |
+      #     echo "Starting emulator and waiting for boot to complete...."
+      #     ls -la $ANDROID_HOME/emulator
+      #     $ANDROID_HOME/emulator/emulator -port 5556 -avd test1 -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim &
+      #     $ANDROID_HOME/platform-tools/adb -s test1 shell 'while [[ -z $(getprop sys.boot_completed | tr -d '\r') ]]; do echo "wait..."; sleep 1; done; input keyevent 82'
+      #     echo "Emulator has finished booting"
+      #     adb devices
+      #     sleep 30
+      #     screencapture screenshot1.jpg
+      #     adb exec-out screencap -p > emulator1.png
 
-      - uses: actions/upload-artifact@v4
-        if: success() || failure()
-        with:
-          name: screenshot1.jpg
-          path: screenshot1.jpg
+      # - uses: actions/upload-artifact@v4
+      #   if: success() || failure()
+      #   with:
+      #     name: screenshot1.jpg
+      #     path: screenshot1.jpg
           
-      - uses: actions/upload-artifact@v4
-        if: success() || failure()
-        with:
-          name: emulator1.png
-          path: emulator1.png
+      # - uses: actions/upload-artifact@v4
+      #   if: success() || failure()
+      #   with:
+      #     name: emulator1.png
+      #     path: emulator1.png
              
       - name: run tests
         uses: reactivecircus/android-emulator-runner@v2
