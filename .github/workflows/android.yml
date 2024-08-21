@@ -34,8 +34,8 @@ jobs:
           - os: macos-latest
             version: 34
             target: aosp_atd
-            arch: x86_64
-            profile: "Nexus 6"
+            arch: arm64-v8a
+            profile: "Pixel 7"
             channel: canary
             
           # - os: ubuntu-latest
