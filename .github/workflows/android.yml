@@ -39,7 +39,7 @@ jobs:
           #   channel: canary
 
           - os: macos-13
-            version: 33
+            version: 31
             target: aosp_atd
             arch: x86_64
             profile: pixel
