@@ -90,8 +90,8 @@ jobs:
           force-avd-creation: false
           emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: true
-          pre-emulator-launch-script: |
-            ./gradlew assembleAndroidTest
+          # pre-emulator-launch-script: |
+          #   ./gradlew assembleAndroidTest
           script: |
             adb shell wm size
             adb shell wm density
