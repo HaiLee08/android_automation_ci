@@ -15,19 +15,19 @@ jobs:
     strategy:
       matrix:
         include:
-          - os: macos-latest
-            version: 31
-            target: google_apis
-            arch: x86_64
-            profile: Nexus 6
-            channel: canary
-            
-          # - os: ubuntu-latest
-          #   version: 35
+          # - os: macos-latest
+          #   version: 31
           #   target: google_apis
           #   arch: x86_64
           #   profile: Nexus 6
           #   channel: canary
+            
+          - os: ubuntu-latest
+            version: 35
+            target: aosp_atd
+            arch: x86_64
+            profile: Nexus 6
+            channel: canary
     steps:
       - name: checkout
         uses: actions/checkout@v4
