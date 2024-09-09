@@ -42,7 +42,7 @@ jobs:
             version: 31
             target: aosp_atd
             arch: x86_64
-            profile: Pixel 6 Pro
+            profile: Nexus 6
             channel: canary
             
           # - os: ubuntu-latest
