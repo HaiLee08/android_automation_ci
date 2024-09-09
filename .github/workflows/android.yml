@@ -109,7 +109,7 @@ jobs:
           target: ${{ matrix.target }}
           profile: ${{ matrix.profile }}
           arch: ${{ matrix.arch }}
-          channel: ${{ matrix.canary }}
+          channel: ${{ matrix.channel }}
           force-avd-creation: false
           emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: false
@@ -124,7 +124,7 @@ jobs:
           target: ${{ matrix.target }}
           profile: ${{ matrix.profile }}
           arch: ${{ matrix.arch }}
-          channel: ${{ matrix.canary }}
+          channel: ${{ matrix.channel }}
           force-avd-creation: false
           emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: true
