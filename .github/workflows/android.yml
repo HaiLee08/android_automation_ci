@@ -15,19 +15,19 @@ jobs:
     strategy:
       matrix:
         include:
-          # - os: macos-13
-          #   version: 31
-          #   target: aosp_atd
-          #   arch: x86_64
-          #   profile: Nexus 6
-          #   channel: canary
-            
-          - os: ubuntu-latest
-            version: 35
+          - os: macos-12
+            version: 31
             target: google_apis
             arch: x86_64
             profile: Nexus 6
             channel: canary
+            
+          # - os: ubuntu-latest
+          #   version: 35
+          #   target: google_apis
+          #   arch: x86_64
+          #   profile: Nexus 6
+          #   channel: canary
     steps:
       - name: checkout
         uses: actions/checkout@v4
@@ -71,7 +71,7 @@ jobs:
           target: ${{ matrix.target }}
           profile: ${{ matrix.profile }}
           arch: ${{ matrix.arch }}
-          channel: ${{ matrix.channel }}
+          #channel: ${{ matrix.channel }}
           force-avd-creation: false
           emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: false
@@ -86,10 +86,12 @@ jobs:
           target: ${{ matrix.target }}
           profile: ${{ matrix.profile }}
           arch: ${{ matrix.arch }}
-          channel: ${{ matrix.channel }}
+          #channel: ${{ matrix.channel }}
           force-avd-creation: false
           emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: true
+          pre-emulator-launch-script: |
+            ./gradlew assembleAndroidTest
           script: |
             adb shell wm size
             adb shell wm density
